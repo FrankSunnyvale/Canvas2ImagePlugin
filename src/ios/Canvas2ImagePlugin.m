@@ -29,6 +29,19 @@
 	
 }
 
+- (void)saveImageDataToAppDirectory:(CDVInvokedUrlCommand*)command
+{
+    self.callbackId = command.callbackId;
+    NSDictionary *options = [command.arguments objectAtIndex:0];
+    NSData* imageData = [NSData dataFromBase64String:[options objectForKey:@"imageData"]];
+    NSString *filename = [options objectForKey:@"filename"];
+    NSString *filepath = [NSTemporaryDirectory() stringByAppendingPathComponent:filename];
+    
+    
+    UIImage* image = [[[UIImage alloc] initWithData:imageData] autorelease];    
+    [imageData writeToFile:filepath atomically:YES];
+}
+
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
 {
     // Was there an error?

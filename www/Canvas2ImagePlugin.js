@@ -23,5 +23,20 @@
             return cordova.exec(successCallback, failureCallback, "Canvas2ImagePlugin","saveImageDataToLibrary",[imageData]);
         }
     }
+
+    saveImageDataToAppDirectory:function(successCallback, failureCallback, canvasId) {
+        // successCallback required
+        if (typeof successCallback != "function") {
+            console.log("Canvas2ImagePlugin Error: successCallback is not a function");
+        }
+        else if (typeof failureCallback != "function") {
+            console.log("Canvas2ImagePlugin Error: failureCallback is not a function");
+        }
+        else {
+            var canvas = (typeof canvasId === "string") ? document.getElementById(canvasId) : canvasId;
+            var imageData = canvas.toDataURL().replace(/data:image\/png;base64,/,'');
+            return cordova.exec(successCallback, failureCallback, "Canvas2ImagePlugin","saveImageDataToAppDirectory",[imageData]);
+        }
+    }
   };
   
